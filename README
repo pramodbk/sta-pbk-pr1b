@@ -1,0 +1,47 @@
+
+
+########################################################
+
+Makefile 			make to generate compiled code
+				> make 
+				> make clean
+
+########################################################
+
+sta				compiled code after make
+				> ./sta filename.in filename.out
+
+########################################################
+
+main.cpp			Top level file. Calling functions to read netlist and print timing information			
+				* Read netlist
+				* Topological sorting
+				* Arrival time calculation
+				* Required arrival time and Slack calculation		
+	
+ReadNetlist.hpp 		
+ReadNetlist.cpp 		File to read netlist from file and function calls to generate netlistgraph
+				* Trim input file and skip comments
+				* Read and enter data to the netlist graph using "INPUT","OUTPUT" and "=" as keywords
+				* NetlistGraph is passed as pointer to this function
+
+node.hpp 			File containing node class definition.
+node.cpp			Contains member functions to node class.
+				* Gate respresentative class
+				* Stores input and output connection info for each node as vector of node pointers.
+			  	* Stores other basic information such as gate index and type
+				* Has methods to calculate 
+					** AT of a node, given input ATs
+					** RAT of a node, given output RATs
+					** Slack at a node
+
+NetlistGraph.hpp 		File containing NetlistGraph (graph) classes.
+NetlistGraph.cpp 		Includes member functions to NetlistGraph class.
+				* Netlist graph class 
+				* Stores list of nodes in the design by name and index. (constructed as a map)
+				* Stores primary input/output and gate types in seperate vectors for easy accesibility
+				* Has methods to generate the graph and printing to file. 
+				* Has methods for levelization (toplogical sorting)
+				* Has methods for calling node RAT/AT methods in the sorted order	
+
+########################################################
